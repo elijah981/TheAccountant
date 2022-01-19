@@ -10,8 +10,9 @@ from website.forms import (
     PostForm,
     RequestResetForm,
     ResetPasswordForm,
+    AccountForm,
 )
-from website.models import User, Post
+from website.models import User, Post, Account
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
 
@@ -22,6 +23,22 @@ def home():
     page = request.args.get("page", 1, type=int)
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
     return render_template("home.html", posts=posts)
+
+
+@app.route("/transactions")
+def transactions():
+    return render_template("transactions.html", title="About")
+
+
+@app.route("/accounts")
+def accounts():
+    accs = Account.query.filter_by(user_id=current_user.id).all()
+    return render_template("accounts.html", accounts=accs, user=current_user)
+
+
+@app.route("/budget")
+def budget():
+    return render_template("budget.html", title="About")
 
 
 @app.route("/about")
@@ -220,3 +237,28 @@ def reset_token(token):
         flash("Your password has been updated! You are now able to log in", "success")
         return redirect(url_for("login"))
     return render_template("reset_token.html", title="Reset Password", form=form)
+
+
+@app.route("/accounts/new", methods=["GET", "POST"])
+@login_required
+def new_account():
+    form = AccountForm()
+    if form.validate_on_submit():
+        acc = Account(
+            name=form.name.data,
+            type=form.type.data,
+            bank=form.bank.data,
+            acc_num=form.acc_num.data,
+            credit_card=form.credit_card.data,
+            investment=form.investment.data,
+            amount=form.amount.data,
+            acc_holder=current_user,
+        )
+
+        db.session.add(acc)
+        db.session.commit()
+        flash("Your account has been created!", "success")
+        return redirect(url_for("home"))
+    return render_template(
+        "create_account.html", title="New Account", form=form, legend="New Account"
+    )
