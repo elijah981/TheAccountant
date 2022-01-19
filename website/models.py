@@ -4,7 +4,7 @@ from datetime import datetime
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
-from flaskblog import app, db, login_manager
+from website import app, db, login_manager
 
 
 @login_manager.user_loader
@@ -19,6 +19,7 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False, default="default.jpg")
     password = db.Column(db.String(60), nullable=False)
     posts = db.relationship("Post", backref="author", lazy=True)  # to be removed
+    accounts = db.relationship("Account", backref="acc_holder", lazy=True)
 
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(app.config["SECRET_KEY"], expires_sec)
@@ -78,7 +79,7 @@ class Account(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
     def __repr__(self):
-        return f"Account('{self.title}', '{self.amount}')"
+        return f"Account('{self.name}')"
 
 
 class frequency(enum.Enum):
