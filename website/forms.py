@@ -1,7 +1,14 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
+from wtforms import (
+    StringField,
+    PasswordField,
+    SubmitField,
+    BooleanField,
+    TextAreaField,
+    FloatField,
+)
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from website.models import User
 
@@ -88,3 +95,14 @@ class ResetPasswordForm(FlaskForm):
         "Confirm Password", validators=[DataRequired(), EqualTo("password")]
     )
     submit = SubmitField("Reset Password")
+
+
+class AccountForm(FlaskForm):
+    name = StringField("Name", validators=[DataRequired()])
+    type = StringField("Type", validators=[DataRequired()])
+    bank = StringField("Bank", validators=[DataRequired()])
+    acc_num = StringField("Account No.", validators=[DataRequired()])
+    credit_card = BooleanField("Is this a credit card?")
+    investment = BooleanField("Is this a investment?")
+    amount = FloatField("Amount", validators=[DataRequired()])
+    submit = SubmitField("Create")
