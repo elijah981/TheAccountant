@@ -4,7 +4,7 @@ from datetime import datetime
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
-from flaskblog import app, db, login_manager
+from website import app, db, login_manager
 
 
 @login_manager.user_loader
