@@ -26,17 +26,20 @@ def home():
 
 
 @app.route("/transactions")
+@login_required
 def transactions():
     return render_template("transactions.html", title="About")
 
 
 @app.route("/accounts")
+@login_required
 def accounts():
     accs = Account.query.filter_by(user_id=current_user.id).all()
     return render_template("accounts.html", accounts=accs, user=current_user)
 
 
 @app.route("/budget")
+@login_required
 def budget():
     return render_template("budget.html", title="About")
 
@@ -262,3 +265,10 @@ def new_account():
     return render_template(
         "create_account.html", title="New Account", form=form, legend="New Account"
     )
+
+
+@app.route("/accounts/<int:acc_id>")
+@login_required
+def read_acc(acc_id):
+    acc = Account.query.filter_by(user_id=current_user.id).get_or_404(acc_id)
+    return render_template("acc.html", title=acc.name, post=acc)
