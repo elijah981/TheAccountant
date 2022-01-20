@@ -6,12 +6,10 @@
 <article class="media content-section">
     <div class="media-body">
         <div class="article-metadata">
-            <a class="mr-2" href="{{ url_for('home', username=user.username) }}">{{ user.username
-                }}</a>
             <small class="text-muted">last updated : {{ account.date.strftime('%d-%b-%Y') }}</small>
         </div>
-        <h2><a class="article-title" href="{{ url_for('accounts', account_id=account.id) }}">{{ account.name }}</a></h2>
-        <p class="article-content">{{ account.name }}</p>
+        <h4><a class="article-title" href="{{ url_for('accounts', account_id=account.id) }}">{{ account.name }}</a></h4>
+        <p class="article-content">{{ account.bank }}</p>
         <p class="article-content">{{ account.amount }}</p>
 
     </div>
