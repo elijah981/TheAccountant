@@ -6,5 +6,5 @@ transactions = Blueprint("transactions", __name__)
 
 @transactions.route("/transactions")
 @login_required
-def transactions():
+def transactions_page():
     return render_template("transactions.html", title="About")

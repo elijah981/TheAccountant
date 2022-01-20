@@ -9,7 +9,7 @@ accounts = Blueprint("accounts", __name__)
 
 @accounts.route("/accounts")
 @login_required
-def accounts():
+def show_accounts():
     accs = Account.query.filter_by(user_id=current_user.id).all()
     return render_template("accounts.html", accounts=accs, user=current_user)
 
