@@ -33,7 +33,7 @@ def new_account():
         db.session.add(acc)
         db.session.commit()
         flash("Your account has been created!", "success")
-        return redirect(url_for("home"))
+        return redirect(url_for("main.home"))
     return render_template(
         "create_account.html", title="New Account", form=form, legend="New Account"
     )
