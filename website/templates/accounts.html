@@ -5,14 +5,47 @@
 {% for account in accounts %}
 <article class="media content-section">
     <div class="media-body">
-        <div class="article-metadata">
-            <small class="text-muted">last updated : {{ account.date.strftime('%d-%b-%Y') }}</small>
+        <div class="card-body  p-3">
+            <div class="d-flex flex-row flex-wrap align-items-start justify-content-between">
+                <div>
+                    <p class="fw-500 fs-18 mb-0">
+                    <h4>{{account.name}}</h4>
+                    </p>
+                </div>
+                <div>
+                    <div>
+                        Update
+                    </div>
+                    <div>
+                        Delete
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex flex-wrap justify-content-between">
+                <div class="false mb-2">
+                    <p class="mb-0 fs-12 text-muted">Bank Name</p>
+                    <p class="fw-500 fs-18 mb-0 mt-1">{{ account.bank }}</p>
+                </div>
+                <div class="false mb-2">
+                    <p class="mb-0 fs-12 text-muted">Account No.</p>
+                    <p class="fw-500 fs-18 mb-0 mt-1">{{ account.acc_num }}</p>
+                </div>
+                <div class="false mb-2">
+                    <p class="mb-0 fs-12 text-muted">Amount</p>
+                    <p class="fw-500 fs-18 mb-0 mt-1">{{ account.amount }}</p>
+                </div>
+                <div class="false mb-2">
+                    <p class="mb-0 fs-12 text-muted">Last Updated</p>
+                    <p class="fw-500 fs-18 mb-0 mt-1">{{ account.date.strftime('%d-%b-%Y') }}</p>
+                </div>
+                <div class="false mb-2">
+                    <p class="mb-0 fs-12 text-muted">Type</p>
+                    <p class="fw-500 fs-18 mb-0 mt-1">{{ account.type }}</p>
+                </div>
+                <div class="mb-2"></div>
+            </div>
         </div>
-        <h4><a class="article-title" href="{{ url_for('accounts.show_accounts', account_id=account.id) }}">{{
-                account.name
-                }}</a></h4>
-        <p class="article-content">{{ account.bank }}</p>
-        <p class="article-content">{{ account.amount }}</p>
 
     </div>
 </article>
