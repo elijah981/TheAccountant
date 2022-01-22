@@ -9,12 +9,13 @@
             <div class="d-flex flex-row flex-wrap align-items-start justify-content-between">
                 <div>
                     <p class="fw-500 fs-18 mb-0">
-                    <h4>{{account.name}}</h4>
+                    <h4>{{account.name}}
+                    </h4>
                     </p>
                 </div>
                 <div>
                     <div>
-                        Update
+                        <a href="{{ url_for('accounts.update_account', acc_id=account.id) }}">Update</a>
                     </div>
                     <div>
                         Delete
