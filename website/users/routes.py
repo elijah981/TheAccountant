@@ -55,9 +55,9 @@ def logout():
     return redirect(url_for("main.home"))
 
 
-@users.route("/account", methods=["GET", "POST"])
+@users.route("/view_user", methods=["GET", "POST"])
 @login_required
-def account():
+def view_user():
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
@@ -67,13 +67,13 @@ def account():
         current_user.email = form.email.data
         db.session.commit()
         flash("Your account has been updated!", "success")
-        return redirect(url_for("users.account"))
+        return redirect(url_for("users.view_user"))
     elif request.method == "GET":
         form.username.data = current_user.username
         form.email.data = current_user.email
     image_file = url_for("static", filename="profile_pics/" + current_user.image_file)
     return render_template(
-        "account.html", title="Account", image_file=image_file, form=form
+        "view_user.html", title="Account", image_file=image_file, form=form
     )
 
 
