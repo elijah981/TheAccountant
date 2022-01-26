@@ -5,7 +5,6 @@ from flask_login import current_user, login_required
 from website import db
 from website.accounts.forms import AccountForm
 from website.models import Account
-from wtforms import SubmitField
 
 accounts = Blueprint("accounts", __name__)
 
@@ -14,7 +13,7 @@ accounts = Blueprint("accounts", __name__)
 @login_required
 def show_accounts():
     accs = Account.query.filter_by(user_id=current_user.id).all()
-    return render_template("accounts.html", accounts=accs, user=current_user)
+    return render_template("accounts.html", accounts=accs)
 
 
 @accounts.route("/accounts/new", methods=["GET", "POST"])

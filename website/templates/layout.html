@@ -33,7 +33,7 @@
             <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
             <a class="nav-item nav-link" href="{{ url_for('transactions.transactions_page') }}">Transactions</a>
             <a class="nav-item nav-link" href="{{ url_for('accounts.show_accounts') }}">Accounts</a>
-            <a class="nav-item nav-link" href="{{ url_for('budgets.budget') }}">Budget</a>
+            <a class="nav-item nav-link" href="{{ url_for('budgets.show_budgets') }}">Budget</a>
             <a class="nav-item nav-link" href="{{ url_for('main.about') }}">About</a>
           </div>
           <!-- Navbar Right Side -->
@@ -74,7 +74,8 @@
             <li class="list-group-item list-group-item-light"><a href="{{ url_for('accounts.new_account') }}">Add
                 Account</a>
             </li>
-            <li class="list-group-item list-group-item-light">Add Budget</li>
+            <li class="list-group-item list-group-item-light"><a href="{{ url_for('budgets.new_budget') }}">Add
+                Budget</a></li>
           </ul>
           </p>
         </div>
