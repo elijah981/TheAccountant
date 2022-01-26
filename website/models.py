@@ -21,6 +21,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=False)
     posts = db.relationship("Post", backref="author", lazy=True)  # to be removed
     accounts = db.relationship("Account", backref="acc_holder", lazy=True)
+    budgets = db.relationship("Budget", backref="acc_holder", lazy=True)
 
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(current_app.config["SECRET_KEY"], expires_sec)
