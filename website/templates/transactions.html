@@ -1,4 +1,42 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1>Transactions Page</h1>
+
+<meta id="api-transactions" data-url="{{ url_for('transactions.get_transactions') }}">
+
+<div class="container">
+    <div class="col-md-8">
+
+        <table cellpadding="0" cellspacing="0" border="0" class="dataTable table table-striped" id="dataTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Budget</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Budget</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='javascript/dataTables.altEditor.free.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/altEditor_base.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/transactions.js') }}"></script>
+
 {% endblock content %}
