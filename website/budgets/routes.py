@@ -1,6 +1,15 @@
 from datetime import datetime, timedelta
 
-from flask import Blueprint, abort, flash, redirect, render_template, request, url_for
+from flask import (
+    Blueprint,
+    abort,
+    flash,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+    url_for,
+)
 from flask_login import current_user, login_required
 from website import db
 from website.budgets.forms import BudgetForm
@@ -14,6 +23,29 @@ budgets = Blueprint("budgets", __name__)
 def show_budgets():
     budgets = Budget.query.filter_by(user_id=current_user.id).all()
     return render_template("budgets.html", budgets=budgets)
+
+
+@budgets.route("/api/budgets", methods=["GET"])
+@login_required
+def get_budgets():
+    """
+    Api to get a list of all budgets
+    """
+    budgets = Budget.query.filter_by(user_id=current_user.id).all()
+
+    data = []
+    for budget in budgets:
+        data.append(
+            {
+                "id": budget.id,
+                "name": budget.name,
+                "date": budget.date,
+                "initial": budget.initial,
+                "present": budget.present,
+                "tenure": budget.tenure.name,
+            }
+        )
+    return jsonify({"data": data})
 
 
 @budgets.route("/budgets/new", methods=["GET", "POST"])

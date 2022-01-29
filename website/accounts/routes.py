@@ -1,6 +1,15 @@
 from datetime import datetime, timedelta
 
-from flask import Blueprint, abort, flash, redirect, render_template, request, url_for
+from flask import (
+    Blueprint,
+    abort,
+    flash,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+    url_for,
+)
 from flask_login import current_user, login_required
 from website import db
 from website.accounts.forms import AccountForm
@@ -14,6 +23,32 @@ accounts = Blueprint("accounts", __name__)
 def show_accounts():
     accs = Account.query.filter_by(user_id=current_user.id).all()
     return render_template("accounts.html", accounts=accs)
+
+
+@accounts.route("/api/accounts", methods=["GET"])
+@login_required
+def get_accounts():
+    """
+    Api to get a list of all accounts
+    """
+    accs = Account.query.filter_by(user_id=current_user.id).all()
+
+    data = []
+    for acc in accs:
+        data.append(
+            {
+                "id": acc.id,
+                "name": acc.name,
+                "date": acc.date,
+                "type": acc.type,
+                "bank": acc.bank,
+                "acc_num": acc.acc_num,
+                "credit_card": acc.credit_card,
+                "investment": acc.investment,
+                "amount": acc.amount,
+            }
+        )
+    return jsonify({"data": data})
 
 
 @accounts.route("/accounts/new", methods=["GET", "POST"])
