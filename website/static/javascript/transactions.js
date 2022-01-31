@@ -84,7 +84,11 @@ $(document).ready(function () {
 
     var columnDefs = [
         { "data": "id", "visible": false, "disabled": true },
-        { "data": "date" },
+        {
+            "data": "date",
+            "title": "Txn Date",
+            "datetimepicker": { timepicker: false, format: "Y/m/d" }
+        },
         {
             "data": "from_name",
             "type": "select",
@@ -104,22 +108,7 @@ $(document).ready(function () {
             "options": budget_options,
         },
         { "data": "description" },
-        { "data": "amount" },
-        // { "data": "project_id", "visible": false, "disabled": true },
-        // {
-        //     "data": "model_id",
-        //     "type": "select",
-        //     "select2": { width: "100%" },
-        //     "options": model_options,
-        // },
-        // {
-        //     "data": "car_id",
-        //     "type": "select",
-        //     "select2": { width: "100%" },
-        //     "options": car_options,
-        // },
-        // { "data": "alias" },
-        // { "data": "lv_device" }
+        { "data": "amount" }
     ];
 
     var get_txn_url = $('#api-transactions').data("url");
